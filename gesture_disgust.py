@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 import stretch_body.robot
 import time
-import playsound
 import pydub
 from pydub import AudioSegment
 from pydub.playback import play
