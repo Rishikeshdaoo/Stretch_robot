@@ -23,7 +23,7 @@ robot.startup()
 
 robot.base.set_rotational_velocity(v_r=0.1) #switch to velocity controller
 robot.push_command()
-robot.base.set_rotational_velocity(v_r=-0.1) #stop motion
+robot.base.set_rotational_velocity(v_r=-0.0) #stop motion
 robot.push_command()
 
 robot.stop()
