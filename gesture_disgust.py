@@ -17,7 +17,7 @@ print("Doing gestures now...")
 
 robot.startup()
 
-# robot.base.translate_by(x_m=0.5)
+robot.base.translate_by(x_m=0.5)
 # robot.push_command()
 # time.sleep(4.0) #wait
 
