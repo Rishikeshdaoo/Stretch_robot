@@ -14,7 +14,7 @@ base_accel_fast_m = robot.base.params['motion']['fast']['accel_m']
 
 def joy_audio():
     print("Playing sound...")
-    sound = AudioSegment.from_file("./audios/Joy.wav")
+    sound = AudioSegment.from_file("./audios/Fear_1.wav")
     sound.apply_gain(100)
     play(sound)
 
@@ -25,23 +25,23 @@ def joy_gesture():
 
     robot.startup()
 
-    robot.head.move_to('head_pan', -1)
-    robot.head.move_to('head_tilt', 0)
-    robot.base.translate_by(x_m=0.5, v_m=base_vel_fast_m, a_m=base_accel_fast_m)
+    robot.head.move_to('head_pan', 3.1)
+    robot.base.translate_by(x_m=-0.5, v_m=base_vel_fast_m, a_m=base_accel_fast_m)
     robot.lift.move_to(x_m=0.8)
-    robot.arm.move_to(0.3)
+    robot.arm.move_to(x_m=0.5)
     robot.push_command()
     time.sleep(3)
-    robot.head.move_to('head_pan', 0)
-    robot.head.move_to('head_tilt', 0.5)
-    robot.arm.move_to(0.3)
-    robot.lift.move_to(x_m=0.6)
+
+    robot.base.translate_by(x_m=-0.5, v_m=base_vel_fast_m, a_m=base_accel_fast_m)
+    robot.lift.move_to(x_m=0)
+    robot.arm.move_to(x_m=0.2)
     robot.push_command()
 
-    time.sleep(3)
+    time.sleep(4)
 
     robot.stow()
     robot.stop()
+
     return
 
 # Create two threads as follows

@@ -6,13 +6,19 @@ from pydub import AudioSegment
 from pydub.playback import play
 from multiprocessing import Process
 
-
 robot=stretch_body.robot.Robot()
+
+arm_vel_slow_m = robot.arm.params['motion']['slow']['vel_m']
+arm_accel_slow_m = robot.arm.params['motion']['slow']['accel_m']
+arm_vel_default_m = robot.arm.params['motion']['default']['vel_m']
+arm_accel_default_m = robot.arm.params['motion']['default']['accel_m']
+arm_vel_fast_m = robot.arm.params['motion']['fast']['vel_m']
+arm_accel_fast_m = robot.arm.params['motion']['fast']['accel_m']
 
 def disgust_audio():
     print("Playing sound...")
     sound = AudioSegment.from_file("./audios/Disgust_1.wav")
-    sound.apply_gain(-6)
+    sound.apply_gain(100)
     play(sound)
 
     return
@@ -22,19 +28,21 @@ def disgust_gesture():
 
     robot.startup()
 
+    robot.head.move_to('head_pan', 2.14)
+    robot.end_of_arm.move_to('wrist_yaw', 0)
     robot.base.rotate_by(x_r=1)
     robot.lift.move_to(x_m=1)
-    robot.arm.move_to(0.8)
+    robot.arm.move_to(x_m=0.3)
     robot.push_command()
-    robot.head.move_to('head_pan', 1)
-    time.sleep(4)
-    robot.base.rotate_by(x_r=-1)
-    robot.lift.move_to(x_m=0)
-    robot.arm.move_to(0)
-    robot.push_command()
+    time.sleep(3.5)
     robot.head.move_to('head_pan', -1)
-    time.sleep(4)
+    robot.base.rotate_by(x_r=-1)
+    robot.lift.move_to(x_m=0.7)
+    robot.arm.move_to(x_m=0)
+    robot.push_command()
+    time.sleep(6)
 
+    robot.stow()
     robot.stop()
 
     return
