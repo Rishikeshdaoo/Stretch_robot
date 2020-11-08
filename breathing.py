@@ -87,8 +87,7 @@ def breathing_gesture_head(robot, choice):
         print("head7")
         robot.head.move_to('head_tilt', -0.4, v_r= 0.1, a_r=0.5)
 
-    time.sleep(2.5)
-
+    time.sleep(3)
     return
 
 def breathing_gesture_wrist(robot, choice):
@@ -126,11 +125,11 @@ def breathing_gesture_lift(robot, choice):
 
     if(choice == 0):
         print("lift1")
-        robot.lift.move_to(x_m=0.3, v_m=lift_vel_slow_m, a_m=lift_accel_slow_m)
+        robot.lift.move_to(x_m=0.8, v_m=lift_vel_slow_m, a_m=lift_accel_slow_m)
 
     elif(choice == 1):
         print("lift2")
-        robot.lift.move_to(x_m=0.2, v_m=lift_vel_slow_m, a_m=lift_accel_slow_m)
+        robot.lift.move_to(x_m=0.7, v_m=lift_vel_slow_m, a_m=lift_accel_slow_m)
 
     elif(choice == 2):
         print("lift3")
@@ -138,16 +137,34 @@ def breathing_gesture_lift(robot, choice):
 
     elif(choice == 3):
         print("lift4")
-        robot.lift.move_to(x_m=0.3, v_m=lift_vel_slow_m, a_m=lift_accel_slow_m)
+        robot.lift.move_to(x_m=0.6, v_m=lift_vel_slow_m, a_m=lift_accel_slow_m)
 
     elif(choice == 4):
         print("lift5")
-        robot.lift.move_to(x_m=0.2, v_m=lift_vel_slow_m, a_m=lift_accel_slow_m)
+        robot.lift.move_to(x_m=0.7, v_m=lift_vel_slow_m, a_m=lift_accel_slow_m)
 
     robot.push_command()
-    time.sleep(3)
-
+    # time.sleep(3)
     return
+
+def breathing_gesture_base(robot, choice):
+
+    # base_vel_slow_m = robot.lift.params['motion']['slow']['vel_r']
+    # base_accel_slow_m = robot.lift.params['motion']['slow']['accel_r']
+
+    if(choice == 0):
+        print("base1")
+        robot.base.rotate_by(x_r=0.8, v_r=0.1, a_r=0.2)
+
+    elif(choice == 1):
+        print("base2")
+        robot.base.rotate_by(x_r=-0.8, v_r=0.1, a_r=0.2)
+
+    robot.push_command()
+    # time.sleep(3)
+    return
+
+
 
 if __name__ == "__main__":
     # Create two threads as follows
