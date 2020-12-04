@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+# Tried to work with OnsetProcessor, TempoProcessor.
+# Both give probabilities of an onset/tempo.
+# Using the highest probability value isnt giving a good beat-sync movement
+
 import stretch_body.robot
 import time
 import pydub
@@ -7,28 +11,27 @@ import numpy as np
 from pydub import AudioSegment
 from pydub.playback import play
 from multiprocessing import Process
-from madmom.features.onsets import OnsetPeakPickingProcessor, RNNOnsetProcessor
+from madmom.features.tempo import TempoEstimationProcessor
+from madmom.features.beats import RNNBeatProcessor
 
 robot=stretch_body.robot.Robot()
 robot.startup()
 
 robot.stow()
 
-filename = "../audios/drum_90.wav"
-proc = OnsetPeakPickingProcessor()
-act = RNNOnsetProcessor()(filename)
-onsets = proc(act)
+filename = "./audios/forest.wav"
+proc = TempoEstimationProcessor(fps=100)
+act = RNNBeatProcessor()(filename)
+tempo = proc(act)
 
-interonsets = np.ediff1d(onsets)
-interonsets = np.add.reduceat(interonsets, np.arange(0, len(interonsets), 4))
+tempo = tempo[0][0]
+t= 60.0/tempo *4
 
-print(interonsets)
+# interonsets = np.ediff1d(onsets)
+# interonsets = np.add.reduceat(interonsets, np.arange(0, len(interonsets), 8))
 
-robot.head.move_to('head_tilt',-1)
-robot.lift.move_to(0.50,10,10)
-robot.end_of_arm.move_to('wrist_yaw',1)
-robot.push_command()
-time.sleep(3)
+# print(interonsets)
+
 
 xrotate=3.14
 xtilt=0.5
@@ -36,18 +39,13 @@ xpan=1
 xwrist=1.5
 #start
 
-def head_bob(robot, times):
-
-    c = 0
+def head_bob(robot):
 
     while(True):
         robot.head.move_to('head_tilt', -0.2)
-        time.sleep(times[c])
+        time.sleep(t)
         robot.head.move_to('head_tilt', 0.2)
-        time.sleep(times[c+1])
-
-        c += 2
-
+        time.sleep(t)
     return
 
 def play_audio():
@@ -61,7 +59,7 @@ def play_audio():
 try:
     p1 = Process(target=play_audio)
     p1.start()
-    head_bob(robot, interonsets)
+    head_bob(robot)
 
 except:
     print("some error")
