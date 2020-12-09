@@ -3,7 +3,7 @@ import stretch_body.robot
 import time
 from pydub import AudioSegment
 from pydub.playback import play
-from multiprocessing import Process
+from threading import Thread
 
 bpm = input("Please enter BPM:")
 
@@ -17,9 +17,9 @@ t= t3 * 2
 t2= t3 * 1.5
 
 if(bpm == 60): filename = "../audios/thiswillbe.wav"
-if(bpm == 80): filename = "./audios/beat_80.wav"
+if(bpm == 80): filename = "./audios/drums_80.wav"
 if(bpm == 90): filename = "../audios/drum_90.wav"
-if(bpm == 100): filename = "../audios/beat_100.wav"
+if(bpm == 100): filename = "../audios/beatbox_100.wav"
 
 #basetranslations parameters
 Vmbasetranslate=10
@@ -56,13 +56,13 @@ Arwrist=10
 #start
 
 def dance1(robot):
-    # robot.end_of_arm.move_by('wrist_yaw',-xwrist,Vrwrist,Arwrist)
-    # robot.push_command()
-    # time.sleep(t3)
+    robot.end_of_arm.move_by('wrist_yaw',-xwrist,Vrwrist,Arwrist)
+    robot.push_command()
+    time.sleep(t3)
     robot.lift.move_to(0.55,Vmlift,amlift)
     robot.end_of_arm.move_by('wrist_yaw',xwrist,Vrwrist,Arwrist)
     robot.push_command()
-    # time.sleep(t3)
+    time.sleep(t3)
 
 def dance2(robot):
     robot.lift.move_to(0.50,Vmlift,amlift)
@@ -183,7 +183,7 @@ def dance22(robot):
     robot.head.move_to('head_pan',-xpan,Vrpan,Arpan)
     robot.arm.move_to(0.30,Vmarm,amarm)
     robot.lift.move_to(0.7,Vmlift,amlift)
-    # robot.base.rotate_by(xrotate,Vmrotation,amrotation)
+    robot.base.rotate_by(xrotate,Vmrotation,amrotation)
     robot.push_command()
 
 def dance23(robot):
@@ -191,21 +191,21 @@ def dance23(robot):
     robot.head.move_to('head_pan',xpan,Vrpan,Arpan)
     robot.arm.move_to(0.5,Vmarm,amarm)
     robot.lift.move_to(0.9,Vmlift,amlift)
-    # robot.base.rotate_by(xrotate,Vmrotation,amrotation)
+    robot.base.rotate_by(xrotate,Vmrotation,amrotation)
     robot.push_command()
 
 def dance24(robot):
     robot.head.move_to('head_pan',-xpan,Vrpan,Arpan)
     robot.arm.move_to(0.30,Vmarm,amarm)
     robot.lift.move_to(0.7,Vmlift,amlift)
-    # robot.base.rotate_by(xrotate,Vmrotation,amrotation)
+    robot.base.rotate_by(xrotate,Vmrotation,amrotation)
     robot.push_command()
 
 def dance25(robot):
     robot.head.move_to('head_pan',0,Vrpan,Arpan)
     robot.arm.move_to(0.25,Vmarm,amarm)
     robot.lift.move_to(0.50,Vmlift,amlift)
-    # robot.base.rotate_by(xrotate,Vmrotation,amrotation)
+    robot.base.rotate_by(xrotate,Vmrotation,amrotation)
     robot.push_command()
 
 def audio():
@@ -220,7 +220,7 @@ if __name__ == "__main__":
     robot = stretch_body.robot.Robot()
     robot.startup()
 
-    robot.stow()
+    # robot.stow()
 
     robot.head.move_to('head_tilt', -1)
     robot.lift.move_to(0.50, 10, 10)
@@ -228,82 +228,109 @@ if __name__ == "__main__":
     robot.push_command()
     time.sleep(3)
 
-    p1 = Process(target=audio)
+    p1 = Thread(target=audio)
+    p1.daemon = True
     p1.start()
-    p2 = Process(target=dance1(robot))
+    p2 = Thread(target=dance1, args=(robot,))
+    p2.daemon = True
     p2.start()
     time.sleep(t3)
-    p3 = Process(target=dance2(robot))
+    p3 = Thread(target=dance2, args=(robot,))
+    p3.daemon = True
     p3.start()
     time.sleep(t3)
-    p4 = Process(target=dance3(robot))
+    p4 = Thread(target=dance3, args=(robot,))
+    p4.daemon = True
     p4.start()
     time.sleep(t3)
-    p5 = Process(target=dance4(robot))
+    p5 = Thread(target=dance4, args=(robot,))
+    p5.daemon = True
     p5.start()
     time.sleep(t3)
-    p6 = Process(target=dance5(robot))
+    p6 = Thread(target=dance5, args=(robot,))
+    p6.daemon = True
     p6.start()
     time.sleep(t3)
-    p7 = Process(target=dance6(robot))
+    p7 = Thread(target=dance6, args=(robot,))
+    p7.daemon = True
     p7.start()
     time.sleep(t3)
-    p8 = Process(target=dance7(robot))
+    p8 = Thread(target=dance7, args=(robot,))
+    p8.daemon = True
     p8.start()
     time.sleep(t3)
-    p26 = Process(target=dance8(robot))
-    p26.start()
-    time.sleep(t3)
-    p9 = Process(target=dance9(robot))
+    p9 = Thread(target=dance9, args=(robot,))
+    p9.daemon = True
     p9.start()
     time.sleep(t3)
-    p10 = Process(target=dance10(robot))
+    p10 = Thread(target=dance10, args=(robot,))
+    p10.daemon = True
     p10.start()
     time.sleep(t3)
-    p11 = Process(target=dance11(robot))
+    p11 = Thread(target=dance11, args=(robot,))
+    p11.daemon = True
     p11.start()
     time.sleep(t3)
-    p12 = Process(target=dance12(robot))
+    p12 = Thread(target=dance12, args=(robot,))
+    p12.daemon = True
     p12.start()
     time.sleep(t3)
-    p13 = Process(target=dance13(robot))
+    p13 = Thread(target=dance13, args=(robot,))
+    p13.daemon = True
     p13.start()
     time.sleep(t3)
-    p14 = Process(target=dance14(robot))
+    p14 = Thread(target=dance14, args=(robot,))
+    p14.daemon = True
     p14.start()
     time.sleep(t3)
-    p15 = Process(target=dance15(robot))
+    p15 = Thread(target=dance15, args=(robot,))
+    p15.daemon = True
     p15.start()
     time.sleep(t3)
-    p16 = Process(target=dance16(robot))
+    p16 = Thread(target=dance16, args=(robot,))
+    p16.daemon = True
     p16.start()
     time.sleep(t3)
-    p17 = Process(target=dance17(robot))
+    p17 = Thread(target=dance17, args=(robot,))
+    p17.daemon = True
     p17.start()
     time.sleep(t3)
-    p18 = Process(target=dance18(robot))
+    p18 = Thread(target=dance18, args=(robot,))
+    p18.daemon = True
     p18.start()
     time.sleep(t3)
-    p19 = Process(target=dance19(robot))
+    p19 = Thread(target=dance19, args=(robot,))
+    p19.daemon = True
     p19.start()
     time.sleep(t3)
-    p20 = Process(target=dance20(robot))
+    p20 = Thread(target=dance20, args=(robot,))
+    p20.daemon = True
     p20.start()
     time.sleep(t3)
-    p21 = Process(target=dance21(robot))
+    p21 = Thread(target=dance21, args=(robot,))
+    p21.daemon = True
     p21.start()
     time.sleep(t3)
-    p22 = Process(target=dance22(robot))
+    p22 = Thread(target=dance22, args=(robot,))
+    p22.daemon = True
     p22.start()
     time.sleep(t3)
-    p23 = Process(target=dance23(robot))
+    p23 = Thread(target=dance23, args=(robot,))
+    p23.daemon = True
     p23.start()
     time.sleep(t3)
-    p24 = Process(target=dance24(robot))
+    p24 = Thread(target=dance24, args=(robot,))
+    p24.daemon = True
     p24.start()
     time.sleep(t3)
-    p25 = Process(target=dance25(robot))
+    p25 = Thread(target=dance25, args=(robot,))
+    p25.daemon = True
     p25.start()
     time.sleep(t3)
+    p26 = Thread(target=dance8, args=(robot,))
+    p26.daemon = True
+    p26.start()
+    time.sleep(t3)
 
+    time.sleep(100)
     robot.stop()
