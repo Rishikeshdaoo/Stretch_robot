@@ -147,7 +147,7 @@ def lift1(robot):
 def arm1(robot):
 
     current = time.time()
-    robot.arm.move_to(x_m=0.2)
+    robot.arm.move_to(x_m=0.25)
     robot.push_command()
     print(t2 - (time.time() - current))
     time.sleep(t2 - (time.time() - current))
