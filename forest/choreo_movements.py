@@ -1,5 +1,10 @@
 #!/usr/bin/env python
 
+#########################################################
+# Deprecated. Use eventbased_dancing.py for reference.
+# Initial script for choreo routines for different DoFs.
+#########################################################
+
 import stretch_body.robot
 import time
 from pydub import AudioSegment

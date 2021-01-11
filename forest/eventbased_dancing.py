@@ -1,11 +1,16 @@
 #!/usr/bin/env python
 
+#########################################################
+# Script for Multithreaded, Event-based approach.
+# Refer this code to see how the initial event-based implementation
+# of Stretch choreography was done.
+#########################################################
+
 import stretch_body.robot
 import time
 from pydub import AudioSegment
 from pydub.playback import play
 from threading import Thread, Event
-
 
 headflag1 = Event()
 headflag2 = Event()
