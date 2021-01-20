@@ -9,11 +9,15 @@ import time
 from threading import Thread, Event
 import stretch_body.robot
 from eventbased_dancing import  audio, flag,    \
-                                head1, head2, head3,    \
+                                head1, head1alt, head2, head3,    \
                                 wrist1, \
                                 lift1, lift2,   \
                                 arm1,   \
-                                base1, base2
+                                base1, base2,    \
+                                getBPM, getTime
+
+bpm = getBPM()
+t = getTime()
 
 robot = stretch_body.robot.Robot()
 robot.startup()
@@ -32,11 +36,10 @@ p1.daemon = True
 p1.start()
 
 current = time.time()
-robot.head.move_to('head_tilt', 0)
-# time.sleep(8*t - (time.time() - current))
-
 flagThread = Thread(target=flag)
 flagThread.daemon = True
+pHeadStart = Thread(target=head1alt, args=(robot,))
+pHeadStart.daemon = True
 pHead1 = Thread(target=head1, args=(robot,))
 pHead1.daemon = True
 pHead2 = Thread(target=head2, args=(robot,))
@@ -56,14 +59,15 @@ pLift2.daemon = True
 pHead3 = Thread(target=head3, args=(robot,))
 pHead3.daemon = True
 flagThread.start()
+pHeadStart.start()
 pHead1.start()
 pHead2.start()
-pWrist1.start()
-pLift1.start()
-pArm1.start()
-pBase1.start()
-pBase2.start()
-pLift2.start()
+# pWrist1.start()
+# pLift1.start()
+# pArm1.start()
+# pBase1.start()
+# pBase2.start()
+# pLift2.start()
 pHead3.start()
 
 time.sleep(2500)
