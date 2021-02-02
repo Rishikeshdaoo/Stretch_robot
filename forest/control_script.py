@@ -9,7 +9,7 @@ import time
 from threading import Thread, Event
 import stretch_body.robot
 from eventbased_dancing import  audio, flag,    \
-                                head1, headStart, head1alt, head2, head3,    \
+                                head1, headStart, head1alt, head2, head2alt, head3,    \
                                 wrist1, wristalt1, \
                                 lift1, lift2, liftalt1,  \
                                 arm1,   \
@@ -50,22 +50,27 @@ pWristAlt1.daemon = True
 pLiftAlt1 = Thread(target=liftalt1, args=(robot,))
 pLiftAlt1.daemon = True
 
-pHead2 = Thread(target=head2, args=(robot,))
-pHead2.daemon = True
+# pHead2 = Thread(target=head2, args=(robot,))
+# pHead2.daemon = True
+pHead2alt = Thread(target=head2alt, args=(robot,))
+pHead2alt.daemon = True
+
 pWrist1 = Thread(target=wrist1, args=(robot,))
 pWrist1.daemon = True
 pLift1 = Thread(target=lift1, args=(robot,))
 pLift1.daemon = True
 pArm1 = Thread(target=arm1, args=(robot,))
 pArm1.daemon = True
-# pBase1 = Thread(target=base1, args=(robot,))
-# pBase1.daemon = True
-# pBase2 = Thread(target=base2, args=(robot,))
-# pBase2.daemon = True
+pBase1 = Thread(target=base1, args=(robot,))
+pBase1.daemon = True
+pBase2 = Thread(target=base2, args=(robot,))
+pBase2.daemon = True
 pLift2 = Thread(target=lift2, args=(robot,))
 pLift2.daemon = True
 pHead3 = Thread(target=head3, args=(robot,))
 pHead3.daemon = True
+
+
 flagThread.start()
 pHeadStart.start()
 pHead1.start()
@@ -73,12 +78,14 @@ pHead1.start()
 pLiftAlt1.start()
 pWristAlt1.start()
 
-pHead2.start()
+# pHead2.start()
+pHead2alt.start()
+
 pWrist1.start()
 pLift1.start()
 pArm1.start()
-# pBase1.start()
-# pBase2.start()
+pBase1.start()
+pBase2.start()
 pLift2.start()
 pHead3.start()
 

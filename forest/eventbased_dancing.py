@@ -16,6 +16,7 @@ headflagStart = Event()
 headflag1 = Event()
 headflag1alt = Event()
 headflag2 = Event()
+headflag2alt = Event()
 headflag3 = Event()
 wristflag1 = Event()
 wristflagalt1 = Event()
@@ -210,47 +211,159 @@ def head2(robot):
     robot.head.move_to('head_pan', 0.0, v_r=head_tilt_fastvel, a_r=head_tilt_fastacc)
     return
 
+def head2alt(robot):
+    headflag2alt.wait()
+    while headflag2alt.is_set():
+        current = time.time()
+        robot.head.move_to('head_pan', -1, v_r=0.2, a_r=0.1)
+
+
+        robot.head.move_to('head_tilt', 0.2, v_r=head_tilt_fastvel, a_r=head_tilt_fastacc)
+        time.sleep(t - (time.time() - current))
+
+        current = time.time()
+        robot.head.move_to('head_tilt', -0.2, v_r=head_tilt_fastvel, a_r=head_tilt_fastacc)
+        time.sleep(t - (time.time() - current))
+
+        current = time.time()
+        robot.head.move_to('head_tilt', 0.2, v_r=head_tilt_fastvel, a_r=head_tilt_fastacc)
+        time.sleep(t - (time.time() - current))
+
+        current = time.time()
+        robot.head.move_to('head_tilt', -0.2, v_r=head_tilt_fastvel, a_r=head_tilt_fastacc)
+        time.sleep(t - (time.time() - current))
+
+        current = time.time()
+        robot.head.move_to('head_tilt', 0.2, v_r=head_tilt_fastvel, a_r=head_tilt_fastacc)
+        time.sleep(t - (time.time() - current))
+
+        current = time.time()
+        robot.head.move_to('head_tilt', -0.2, v_r=head_tilt_fastvel, a_r=head_tilt_fastacc)
+        time.sleep(t - (time.time() - current))
+        current = time.time()
+
+        robot.head.move_to('head_tilt', 0.2, v_r=head_tilt_fastvel, a_r=head_tilt_fastacc)
+        time.sleep(t - (time.time() - current))
+
+        current = time.time()
+        robot.head.move_to('head_tilt', -0.2, v_r=head_tilt_fastvel, a_r=head_tilt_fastacc)
+        time.sleep(t - (time.time() - current))
+
+
+        current = time.time()
+        robot.head.move_to('head_pan', 1, v_r=0.4, a_r=0.1)
+
+        robot.head.move_to('head_tilt', 0.2, v_r=head_tilt_fastvel, a_r=head_tilt_fastacc)
+        time.sleep(t - (time.time() - current))
+
+        current = time.time()
+        robot.head.move_to('head_tilt', -0.2, v_r=head_tilt_fastvel, a_r=head_tilt_fastacc)
+        time.sleep(t - (time.time() - current))
+
+        current = time.time()
+        robot.head.move_to('head_tilt', 0.2, v_r=head_tilt_fastvel, a_r=head_tilt_fastacc)
+        time.sleep(t - (time.time() - current))
+
+        current = time.time()
+        robot.head.move_to('head_tilt', -0.2, v_r=head_tilt_fastvel, a_r=head_tilt_fastacc)
+        time.sleep(t - (time.time() - current))
+
+        current = time.time()
+        robot.head.move_to('head_tilt', 0.2, v_r=head_tilt_fastvel, a_r=head_tilt_fastacc)
+        time.sleep(t - (time.time() - current))
+
+        current = time.time()
+        robot.head.move_to('head_tilt', -0.2, v_r=head_tilt_fastvel, a_r=head_tilt_fastacc)
+        time.sleep(t - (time.time() - current))
+
+        current = time.time()
+        robot.head.move_to('head_tilt', 0.2, v_r=head_tilt_fastvel, a_r=head_tilt_fastacc)
+        time.sleep(t - (time.time() - current))
+
+        current = time.time()
+        robot.head.move_to('head_tilt', -0.2, v_r=head_tilt_fastvel, a_r=head_tilt_fastacc)
+        time.sleep(t - (time.time() - current))
+
+        time.sleep(t - (time.time() - current))
+
+    return
+
 def head3(robot):
     headflag3.wait()
     while headflag3.is_set():
-        current = time.time()
-        robot.head.move_to('head_tilt', 0.5, v_r = head_tilt_fastvel, a_r = head_tilt_fastacc)
-        print(t12 - (time.time() - current))
-        time.sleep(t12 - (time.time() - current))
+        # current = time.time()
+        # robot.head.move_to('head_tilt', 0.5, v_r = head_tilt_fastvel, a_r = head_tilt_fastacc)
+        # print(t12 - (time.time() - current))
+        # time.sleep(t12 - (time.time() - current))
 
         # current = time.time()
         # robot.head.move_to('head_tilt', -0.5, v_r = head_tilt_fastvel, a_r = head_tilt_fastacc)
         # print(t - (time.time() - current))
         # time.sleep(t - (time.time() - current))
 
-        current = time.time()
-        robot.head.move_to('head_pan', -0.5, v_r = head_tilt_fastvel, a_r = head_tilt_fastacc)
+        # current = time.time()
+        # robot.head.move_to('head_pan', -0.5, v_r = head_tilt_fastvel, a_r = head_tilt_fastacc)
+        # # robot.head.move_to('head_tilt', -0.5, v_r = head_tilt_fastvel, a_r = head_tilt_fastacc)
+        # print(t - (time.time() - current))
+        # time.sleep(t - (time.time() - current))
+        #
+        # current = time.time()
+        # robot.head.move_to('head_pan', 0.5, v_r = head_tilt_fastvel, a_r = head_tilt_fastacc)
+        # # robot.head.move_to('head_tilt', 0.5, v_r = head_tilt_fastvel, a_r = head_tilt_fastacc)
+        # print(t12 - (time.time() - current))
+        # time.sleep(t12 - (time.time() - current))
+        #
+        # current = time.time()
         # robot.head.move_to('head_tilt', -0.5, v_r = head_tilt_fastvel, a_r = head_tilt_fastacc)
-        print(t - (time.time() - current))
+        # print(t - (time.time() - current))
+        # time.sleep(t - (time.time() - current))
+        #
+        # current = time.time()
+        # robot.head.move_to('head_pan', 0.5, v_r = head_tilt_fastvel, a_r = head_tilt_fastacc)
+        # # robot.head.move_to('head_tilt', 0.5, v_r = head_tilt_fastvel, a_r = head_tilt_fastacc)
+        # print(t12 - (time.time() - current))
+        # time.sleep(t12 - (time.time() - current))
+        #
+        # current = time.time()
+        # robot.head.move_to('head_pan', -0.5, v_r = head_tilt_fastvel, a_r = head_tilt_fastacc)
+        # # robot.head.move_to('head_tilt', -0.5, v_r = head_tilt_fastvel, a_r = head_tilt_fastacc)
+        # print(t12 - (time.time() - current))
+        # time.sleep(t12 - (time.time() - current))
+
+    ################################################################################
+
+        current = time.time()
+        robot.head.move_to('head_pan', 0, v_r=head_tilt_fastvel, a_r=head_tilt_fastacc)
         time.sleep(t - (time.time() - current))
 
         current = time.time()
-        robot.head.move_to('head_pan', 0.5, v_r = head_tilt_fastvel, a_r = head_tilt_fastacc)
-        # robot.head.move_to('head_tilt', 0.5, v_r = head_tilt_fastvel, a_r = head_tilt_fastacc)
-        print(t12 - (time.time() - current))
-        time.sleep(t12 - (time.time() - current))
-
-        current = time.time()
-        robot.head.move_to('head_tilt', -0.5, v_r = head_tilt_fastvel, a_r = head_tilt_fastacc)
-        print(t - (time.time() - current))
+        robot.head.move_to('head_pan', -0.4, v_r=head_tilt_fastvel, a_r=head_tilt_fastacc)
         time.sleep(t - (time.time() - current))
 
         current = time.time()
-        robot.head.move_to('head_pan', 0.5, v_r = head_tilt_fastvel, a_r = head_tilt_fastacc)
-        # robot.head.move_to('head_tilt', 0.5, v_r = head_tilt_fastvel, a_r = head_tilt_fastacc)
-        print(t12 - (time.time() - current))
-        time.sleep(t12 - (time.time() - current))
+        robot.head.move_to('head_pan', 0, v_r=head_tilt_fastvel, a_r=head_tilt_fastacc)
+        time.sleep(t - (time.time() - current))
 
         current = time.time()
-        robot.head.move_to('head_pan', -0.5, v_r = head_tilt_fastvel, a_r = head_tilt_fastacc)
-        # robot.head.move_to('head_tilt', -0.5, v_r = head_tilt_fastvel, a_r = head_tilt_fastacc)
-        print(t12 - (time.time() - current))
-        time.sleep(t12 - (time.time() - current))
+        robot.head.move_to('head_pan', -0.4, v_r=head_tilt_fastvel, a_r=head_tilt_fastacc)
+        time.sleep(t - (time.time() - current))
+
+
+        current = time.time()
+        robot.head.move_to('head_pan', 0, v_r=head_tilt_fastvel, a_r=head_tilt_fastacc)
+        time.sleep(t - (time.time() - current))
+
+        current = time.time()
+        robot.head.move_to('head_pan', 0.4, v_r=head_tilt_fastvel, a_r=head_tilt_fastacc)
+        time.sleep(t - (time.time() - current))
+
+        current = time.time()
+        robot.head.move_to('head_pan', 0, v_r=head_tilt_fastvel, a_r=head_tilt_fastacc)
+        time.sleep(t - (time.time() - current))
+
+        current = time.time()
+        robot.head.move_to('head_pan', 0.4, v_r=head_tilt_fastvel, a_r=head_tilt_fastacc)
+        time.sleep(t - (time.time() - current))
 
     return
 
@@ -258,14 +371,14 @@ def wrist1(robot):
     wristflag1.wait()
     while wristflag1.is_set():
         current = time.time()
-        robot.end_of_arm.move_to('wrist_yaw', -0.5, v_r = wrist_fastvel, a_r = wrist_fastacc)
-        print(t - (time.time() - current))
+        robot.end_of_arm.move_to('wrist_yaw', -0.2, v_r = wrist_fastvel, a_r = wrist_fastacc)
+        print(4*t - (time.time() - current))
         time.sleep(t - (time.time() - current))
 
         current = time.time()
-        robot.end_of_arm.move_to('wrist_yaw', 0.5, v_r = wrist_fastvel, a_r = wrist_fastacc)
+        robot.end_of_arm.move_to('wrist_yaw', 0.2, v_r = wrist_fastvel, a_r = wrist_fastacc)
         print(t - (time.time() - current))
-        time.sleep(t - (time.time() - current))
+        time.sleep(4*t - (time.time() - current))
 
     return
 
@@ -348,6 +461,19 @@ def arm1(robot):
         print(t2 - (time.time() - current))
         time.sleep(t2 - (time.time() - current))
 
+
+        current = time.time()
+        robot.arm.move_to(x_m=0.5)
+        robot.push_command()
+        print(t2 - (time.time() - current))
+        time.sleep(t2 - (time.time() - current))
+
+        current = time.time()
+        robot.arm.move_to(x_m=0.15)
+        robot.push_command()
+        print(t2 - (time.time() - current))
+        time.sleep(t2 - (time.time() - current))
+
     return
 
 def base1(robot):
@@ -404,14 +530,15 @@ def flag():
     liftflagalt1.set()
     wristflagalt1.set()
     print("Head Choreo 1 started...")
-    time.sleep(8*t - (time.time() - current))
+    time.sleep(8*t  - (time.time() - current))
     # headflag1.clear()
     headflag1alt.clear()
     liftflagalt1.clear()
     wristflagalt1.clear()
 
     current = time.time()
-    headflag2.set()
+    # headflag2.set()
+    headflag2alt.set()
     print("Head Choreo 2 started...")
     time.sleep(4*t - (time.time() - current))
 
@@ -434,7 +561,8 @@ def flag():
     print("Base Choreo 1 started...")
     time.sleep(8 * t - (time.time() - current))
 
-    headflag2.clear()
+    # headflag2.clear()
+    headflag2alt.clear()
     baseflag1.clear()
     liftflag1.clear()
     current = time.time()
