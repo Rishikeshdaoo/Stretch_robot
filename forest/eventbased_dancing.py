@@ -4,6 +4,8 @@
 # Script for Multithreaded, Event-based approach.
 # Refer this code to see how the initial event-based implementation
 # of Stretch choreography was done.
+#
+# Choreography - Snake style moving around.
 #########################################################
 
 import stretch_body.robot
@@ -26,6 +28,8 @@ liftflagalt1 = Event()
 armflag1 = Event()
 baseflag1 = Event()
 baseflag2 = Event()
+baseflag3 = Event()
+baseflag4 = Event()
 
 robot = stretch_body.robot.Robot()
 
@@ -282,9 +286,7 @@ def head2alt(robot):
 
         current = time.time()
         robot.head.move_to('head_tilt', -0.2, v_r=head_tilt_fastvel, a_r=head_tilt_fastacc)
-        time.sleep(t - (time.time() - current))
-
-        time.sleep(t - (time.time() - current))
+        time.sleep(t2 - (time.time() - current))
 
     return
 
@@ -510,6 +512,50 @@ def base2(robot):
 
     return
 
+def base3(robot):
+    baseflag3.wait()
+    while baseflag3.is_set():
+        current = time.time()
+        robot.base.translate_by(x_m=2, v_m= 2, a_m = 1)
+        robot.push_command()
+        print(t2 - (time.time() - current))
+        time.sleep(t2 - (time.time() - current))
+
+        current = time.time()
+        robot.base.rotate_by(x_r=1, v_r= 2, a_r = 1)
+        robot.push_command()
+        print(t2 - (time.time() - current))
+        time.sleep(t2 - (time.time() - current))
+
+	current = time.time()
+	robot.base.rotate_by(x_r=-1, v_r=2, a_r=1)
+	robot.push_command()
+	time.sleep(t2 - (time.time() - current))
+
+    return
+
+def base4(robot):
+    baseflag4.wait()
+    while baseflag4.is_set():
+        current = time.time()
+        robot.base.translate_by(x_m=2, v_m= 2, a_m = 1)
+        robot.push_command()
+        print(t2 - (time.time() - current))
+        time.sleep(t2 - (time.time() - current))
+
+        current = time.time()
+        robot.base.rotate_by(x_r=-1, v_r= 1, a_r = 1)
+        robot.push_command()
+        print(t2 - (time.time() - current))
+        time.sleep(t2 - (time.time() - current))
+
+	current = time.time()
+	robot.base.rotate_by(x_r=1, v_r=1, a_r=1)
+	robot.push_command()
+	time.sleep(t2 - (time.time() - current))
+
+    return
+
 def audio():
     print("Playing sound...")
     sound = AudioSegment.from_file(filename)
@@ -557,16 +603,19 @@ def flag():
     time.sleep(2*t - (time.time() - current))
 
     current = time.time()
-    baseflag1.set()
+    # baseflag1.set()
+    baseflag3.set()
     print("Base Choreo 1 started...")
     time.sleep(8 * t - (time.time() - current))
 
     # headflag2.clear()
     headflag2alt.clear()
-    baseflag1.clear()
+    # baseflag1.clear()
+    baseflag3.clear()
     liftflag1.clear()
     current = time.time()
-    baseflag2.set()
+    # baseflag2.set()
+    baseflag4.set()
     liftflag2.set()
     headflag3.set()
     print("Base and Lift Choreo 2 started...")
@@ -586,21 +635,30 @@ if __name__ == "__main__":
     robot.push_command()
     time.sleep(3)
 
-
     p1 = Thread(target=audio)
     p1.daemon = True
     p1.start()
 
     current = time.time()
-    robot.head.move_to('head_tilt', 0)
-    time.sleep(8*t - (time.time() - current))
-
     flagThread = Thread(target=flag)
     flagThread.daemon = True
-    pHead1 = Thread(target=head1, args=(robot,))
+    pHeadStart = Thread(target=headStart, args=(robot,))
+    pHeadStart.daemon = True
+    # pHead1 = Thread(target=head1, args=(robot,))
+    # pHead1.daemon = True
+    pHead1 = Thread(target=head1alt, args=(robot,))
     pHead1.daemon = True
-    pHead2 = Thread(target=head2, args=(robot,))
-    pHead2.daemon = True
+
+    pWristAlt1 = Thread(target=wristalt1, args=(robot,))
+    pWristAlt1.daemon = True
+    pLiftAlt1 = Thread(target=liftalt1, args=(robot,))
+    pLiftAlt1.daemon = True
+
+    # pHead2 = Thread(target=head2, args=(robot,))
+    # pHead2.daemon = True
+    pHead2alt = Thread(target=head2alt, args=(robot,))
+    pHead2alt.daemon = True
+
     pWrist1 = Thread(target=wrist1, args=(robot,))
     pWrist1.daemon = True
     pLift1 = Thread(target=lift1, args=(robot,))
@@ -611,18 +669,32 @@ if __name__ == "__main__":
     pBase1.daemon = True
     pBase2 = Thread(target=base2, args=(robot,))
     pBase2.daemon = True
+    pBase3 = Thread(target=base3, args=(robot,))
+    pBase3.daemon = True
+    pBase4 = Thread(target=base4, args=(robot,))
+    pBase4.daemon = True
     pLift2 = Thread(target=lift2, args=(robot,))
     pLift2.daemon = True
     pHead3 = Thread(target=head3, args=(robot,))
     pHead3.daemon = True
+
     flagThread.start()
+    pHeadStart.start()
     pHead1.start()
-    pHead2.start()
+
+    pLiftAlt1.start()
+    pWristAlt1.start()
+
+    # pHead2.start()
+    pHead2alt.start()
+
     pWrist1.start()
     pLift1.start()
     pArm1.start()
-    pBase1.start()
-    pBase2.start()
+    # pBase1.start()
+    # pBase2.start()
+    pBase3.start()
+    pBase4.start()
     pLift2.start()
     pHead3.start()
 
